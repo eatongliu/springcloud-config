@@ -1,0 +1,70 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8001/eureka/
+server:
+  port: 8100
+spring:
+  application:
+    name: auth-api
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: NON_NULL
+  cloud:
+    config:
+      profile: ${spring.profiles.active}
+      discovery:
+        enabled: true
+        serviceId: report-config
+  messages:
+    basename: i18n/messages
+
+feign:
+  hystrix:
+    enabled: true # feign 启用熔断
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 70000  # 熔断超时时间
+
+ribbon:
+  ReadTimeout: 60000 #请求处理超时时间
+  ConnectTimeout: 60000
+
+access:
+  redis-key: ty-access-token
+  redis-key-api-key: ty-access-api-key
+  expire: 7200
+  timestamp-expire: 120
+
+
+#第三方登录配置
+thirdClient:
+  data:
+    bona:
+      salt: 546sdffffffffffwerdsdfs3245345
+      url : http://www.baiucu.com
+
+# SMS service conf
+newlens:
+  sms:
+    enable: true
+    tengxunyun:
+      appId: 1400033665
+      appKey: 77e39231aea246b9d93658a69cc8f1bd
+    cl:
+      apiUrl: http://222.73.117.158/msg/HttpBatchSendSM
+      acount: vip_ty
+      pswd: Tch123456
+      needStatus: true
+    smkj:
+      apiUrl: http://api.shumi365.com:8090/sms/send.do
+      userid: 400135
+      pwd: 112496
+    heartbeat_check_mobile_no: 10086
+    heartbeat_check_interval: 30000
+    minIntervalLimit: 55
